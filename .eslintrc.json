@@ -1,13 +1,17 @@
 {
     "env": {
         "commonjs": true,
-        "es2021": true
+        "es2021": true,
+        "node" : true
     },
     "extends": "eslint:recommended",
+    
     "parserOptions": {
         "ecmaVersion": 15
     },
+
     "rules": {
+        
         "accessor-pairs": "error",
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
@@ -219,7 +223,7 @@
         "require-await": "error",
         "require-unicode-regexp": "error",
         "rest-spread-spacing": "error",
-        "semi": "off",
+        "semi": ["error", "never"], // disabilitar las semi-colons
         "semi-spacing": "error",
         "semi-style": [
             "error",
