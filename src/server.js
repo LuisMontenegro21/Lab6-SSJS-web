@@ -1,8 +1,30 @@
 const express = require('express')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDefinition = require('./swaggerDefinition')
+const cors = require('cors')
 const app = express()
 const port = 3000
 
+
+const options  = {
+    swaggerDefinition,
+    apis: ['./design/*.js']
+}
+
+const corsOptions = {
+    origin: true, 
+    credentials: true,
+    optionSuccessStatus: 200
+}
+
+const swaggerSpec = swaggerJSDoc(options)
+
+
+// configurar el uso de Swageger, Cors y Express
+app.use(cors())
 app.use(express.json())
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // get posts
 app.get('/posts', (req, res) => {
@@ -10,7 +32,7 @@ app.get('/posts', (req, res) => {
 })
 
 // get posts id
-app.get('/posts/:postId', (req, res) => {
+app.get('/posts/:postId', cors(corsOptions), (req, res) => {
     const { postId } = req.params
     const post = posts.find(p => p.id === parseInt(postId))
     if (post) {
@@ -21,6 +43,8 @@ app.get('/posts/:postId', (req, res) => {
     }
 })
 
+
+ 
 // post posts
 app.post('/posts', (req, res) => {
     const { title, content } = req.body
@@ -45,7 +69,7 @@ app.put('/posts/:postId', (req, res) => {
 })
 
 // delete posts id
-app.delete('/posts/:postId', (req, res) =>{
+app.delete('/posts/:postId', cors(corsOptions), (req, res) =>{
     const { postId } = req.params
     posts = posts.filter(p => p.id !== parseInt(postId))
     res.status(204).send()

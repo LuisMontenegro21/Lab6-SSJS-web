@@ -2,17 +2,20 @@
   "name": "lab6-ssjs-web",
   "version": "1.0.0",
   "description": "Server Side JavaScript",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node src/server.js",
     "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint . --fix"  
+    "lint:fix": "eslint . --fix"
   },
   "author": "Luis Montenegro",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.21.0",
